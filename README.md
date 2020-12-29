@@ -47,5 +47,8 @@ I decided to do a simple implementation of a director AI in unity using a system
 
 The first thing I did was change the foundation I already had to fit more into the style of game I’m going for. This meant changing the enemy types and the map and how pickups work.
 
-**The Director**
+**Stress level**
+
+I added a stress level script and element to the HUD. The stress system i made is simpler than the one used in left 4 dead but has the same purpose. The stress in my implementation increases when an enemy is in 6 meters of the player (danger zone) and when an enemy succesfully atacks the player. When an enemy is in the danger zone the stress only increases 1/2 of when an enemy attacks the player. This makes sure that the stress doesn't increase too fast and that the player is overwhelmed.
+
 
