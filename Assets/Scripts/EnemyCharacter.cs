@@ -8,6 +8,7 @@ public class EnemyCharacter : BasicCharacter
     private GameObject m_PlayerTarget = null;
     [SerializeField] private float m_AttackRange = 2.0f;
     [SerializeField] private float m_FireTimer = 1.0f;
+    [SerializeField] private int m_damage = 10;
     private bool m_HasAttacked;
     private float m_Timer = 0.0f;
     private Health m_Health = null;
@@ -85,11 +86,6 @@ public class EnemyCharacter : BasicCharacter
 
     private void HandleAttacking()
     {
-        if (m_ShootingBehaviour == null)
-        {
-            return;
-        }
-
         if (m_PlayerTarget == null)
         {
             return;
@@ -105,11 +101,7 @@ public class EnemyCharacter : BasicCharacter
         {
              if ((transform.position - m_PlayerTarget.transform.position).sqrMagnitude <= m_AttackRange * m_AttackRange)
              {
-                 m_ShootingBehaviour.PrimaryFire();
-                 if (m_ShootingBehaviour.PrimaryWeaponAmmo == 0)
-                 {
-                     m_ShootingBehaviour.Reload();
-                 }
+                m_PlayerTarget.GetComponent<Health>().Damage(m_damage);
                 m_HasAttacked = true;
              }
         }

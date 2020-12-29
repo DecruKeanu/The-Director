@@ -10,20 +10,13 @@ public class HUD : MonoBehaviour
     [SerializeField] private Image m_HealthBar = null;
     [SerializeField] private Text m_PrimaryAmmo = null;
     [SerializeField] private Text m_TotalAmmo = null;
-    [SerializeField] private Text m_MoneyScore = null;
     [SerializeField] private Text m_GrenadeText = null;
     [SerializeField] private Text m_GrenadeCounter = null;
-    [SerializeField] private Text m_BombText = null;
-    [SerializeField] private Text m_BombCounter = null;
     [SerializeField] private RectTransform m_PanelEndScreen = null;
-    [SerializeField] private Text m_GameOverMoneyScore = null;
-    [SerializeField] private Text m_GameWonMoneyScore = null;
-    [SerializeField] public RectTransform m_PanelEndVictoryScreen = null;
     private Health m_PlayerHealth = null;
     private ShootingBehaviour m_PlayerShootingBehaviour = null;
     private LevelLogic m_LevelLogic = null;
-    private float m_Timer1;
-    private float m_Timer2;
+
     void Start()
     {
         //find an object of type player
@@ -36,9 +29,6 @@ public class HUD : MonoBehaviour
             m_PlayerHealth = player.GetComponent<Health>();
             m_PlayerShootingBehaviour = player.GetComponent<ShootingBehaviour>();
         }
-        //assign our timers with their startvalues 
-        m_Timer1 = m_LevelLogic.m_ExplosionTimer1;
-        m_Timer2 = m_LevelLogic.m_ExplosionTimer2;
     }
 
     private void Update()
@@ -62,16 +52,6 @@ public class HUD : MonoBehaviour
         if (!m_LevelLogic)
             return;
 
-        //if our player won the game pause the game, enable the VictoryScreen and restart the game when the player presses R
-        if (m_LevelLogic.m_GameWon == true)
-        {
-            m_PanelEndVictoryScreen.gameObject.SetActive(true);
-            Time.timeScale = 0;
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene(0);
-            }
-        }
     }
 
     private void SyncData()
@@ -109,38 +89,5 @@ public class HUD : MonoBehaviour
         if (!m_LevelLogic)
             return;
 
-        if (m_LevelLogic.m_IsBombPlaced1 == true)
-        {
-            if (m_Timer1 > 0.0f)
-            {
-                m_BombText.gameObject.SetActive(true);
-                m_BombCounter.gameObject.SetActive(true);
-                m_Timer1 -= Time.deltaTime;
-                m_BombCounter.text = m_Timer1.ToString();
-            }
-            else
-            {
-                m_BombText.gameObject.SetActive(false);
-                m_BombCounter.gameObject.SetActive(false);
-            }
-        }
-        if (m_LevelLogic.m_IsBombPlaced2 == true)
-        {
-            if (m_Timer2 > 0.0f)
-            {
-                m_BombText.gameObject.SetActive(true);
-                m_BombCounter.gameObject.SetActive(true);
-                m_Timer2 -= Time.deltaTime;
-                m_BombCounter.text = m_Timer2.ToString();
-            }
-            else
-            {
-                m_BombText.gameObject.SetActive(false);
-                m_BombCounter.gameObject.SetActive(false);
-            }
-        }
-        m_MoneyScore.text = m_LevelLogic.MoneyScore.ToString();
-        m_GameOverMoneyScore.text = m_LevelLogic.MoneyScore.ToString();
-        m_GameWonMoneyScore.text = m_LevelLogic.MoneyScore.ToString();
     }
 }

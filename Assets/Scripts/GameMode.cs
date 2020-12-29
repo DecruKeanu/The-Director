@@ -20,8 +20,7 @@ public class GameMode : MonoBehaviour
 
     private void Update()
     {
-        //when the second bom is placed activate the enemySpawns
-        if (m_Level.Bomb2Placed)
+        if (m_Level.m_GameStarted == false)
         {
             if (m_DoOnce == false)
             {

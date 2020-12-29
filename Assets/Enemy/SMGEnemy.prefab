@@ -157,7 +157,6 @@ GameObject:
   - component: {fileID: 4925838146403666235}
   - component: {fileID: 4575458811838588601}
   - component: {fileID: 1201018428618711331}
-  - component: {fileID: 9217048069007585540}
   m_Layer: 10
   m_Name: SMGEnemy
   m_TagString: Enemy
@@ -207,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AttackRange: 5
   m_FireTimer: 1
+  m_damage: 10
   m_HealthpickUp: {fileID: 7466871809661151963, guid: 43637efa822fc764ebad7dce4dcb0a14, type: 3}
   m_AmmopickUp: {fileID: 2140311098372556086, guid: 32c078fff16acc24cacb45ebf3ed09fd, type: 3}
 --- !u!195 &4925838146403666235
@@ -259,24 +259,6 @@ MonoBehaviour:
   m_StartHealth: 30
   m_FlickerColor: {r: 1, g: 1, b: 1, a: 1}
   m_FlickerDuration: 0.1
---- !u!114 &9217048069007585540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4934169480759174764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66fbbcebc0ae4be4289ad480698e2de5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_WhichWeapon: 1
-  m_AssaultGunTemplate: {fileID: 4373087568600123746, guid: 6a4d94bcad6e0984384e510c5394bc74, type: 3}
-  m_ShotGunTemplate: {fileID: 6266658574500729074, guid: d81ad9ca11ae07547a1d2f87c0633efa, type: 3}
-  m_SubMachineGunTemplate: {fileID: 7592509907679174165, guid: 52c3ba762e8bfa746add50c9e6635a97, type: 3}
-  m_PrimarySocket: {fileID: 3201973935566344391}
-  m_IsAssaultGun: 0
 --- !u!1 &9042358077296707092
 GameObject:
   m_ObjectHideFlags: 0
