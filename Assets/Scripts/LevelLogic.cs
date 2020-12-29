@@ -16,7 +16,6 @@ public class LevelLogic : MonoBehaviour
     [SerializeField] private RectTransform m_Text4 = null;
     [SerializeField] private RectTransform m_Text5 = null;
     [SerializeField] private RectTransform m_Text6 = null;
-    [SerializeField] private AudioSource m_ExplosionSound = null;
 
     private ShootingBehaviour m_PlayerShootingBehaviour;
     private MovementBehaviour m_PlayerMovementBehaviour;

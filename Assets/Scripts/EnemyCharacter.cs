@@ -7,15 +7,19 @@ public class EnemyCharacter : BasicCharacter
 {
     private GameObject m_PlayerTarget = null;
     [SerializeField] private float m_AttackRange = 2.0f;
+    private float m_StressRange = 6.0f;
     [SerializeField] private float m_FireTimer = 1.0f;
     [SerializeField] private int m_damage = 10;
     private bool m_HasAttacked;
     private float m_Timer = 0.0f;
+    private float m_StressTimer = 0.0f;
     private Health m_Health = null;
     [SerializeField] private GameObject m_HealthpickUp = null;
     [SerializeField] private GameObject m_AmmopickUp = null;
     private bool m_DoOnce = false;
     private float m_DropChance;
+    private StressLevel m_PlayerStressLevel = null;
+    private bool CanIncreaseStressLevel = false;
     private void Start()
     {
         //expensive method, use with caution
@@ -24,6 +28,7 @@ public class EnemyCharacter : BasicCharacter
         if(player)
         {
             m_PlayerTarget = player.gameObject;
+            m_PlayerStressLevel = player.GetComponent<StressLevel>();
         }
         m_Health = GetComponent<Health>();
         m_DropChance = Random.Range(0, 3);
@@ -35,6 +40,14 @@ public class EnemyCharacter : BasicCharacter
         HandleMovement();
         HandleAttacking();
 
+        m_StressTimer += Time.deltaTime;
+        CanIncreaseStressLevel = false;
+        if (m_StressTimer > 2.0f)
+        {
+            m_StressTimer = 0.0f;
+            CanIncreaseStressLevel = true;
+        }
+        
         if (m_Timer > 0.0f)
         {
             m_Timer -= Time.deltaTime;
@@ -80,6 +93,11 @@ public class EnemyCharacter : BasicCharacter
             {
                 m_MovementBehaviour.Target = this.gameObject;
             }
+            if ((transform.position - m_PlayerTarget.transform.position).sqrMagnitude < m_StressRange * m_StressRange)
+            {
+                if (CanIncreaseStressLevel)
+                m_PlayerStressLevel.IncreaseStress(m_damage/2);
+            }
         }
         m_MovementBehaviour.DesiredLookatPoint = m_PlayerTarget.transform.position;
     }
@@ -103,6 +121,7 @@ public class EnemyCharacter : BasicCharacter
              {
                 m_PlayerTarget.GetComponent<Health>().Damage(m_damage);
                 m_HasAttacked = true;
+                m_PlayerStressLevel.IncreaseStress(m_damage);
              }
         }
     }

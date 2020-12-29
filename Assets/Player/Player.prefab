@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 4205452364807596912}
   - component: {fileID: 7716674994980014174}
   - component: {fileID: 2675978295131666154}
+  - component: {fileID: 1014122942175154043}
   m_Layer: 8
   m_Name: Player
   m_TagString: Friendly
@@ -205,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc803eefaddee64a939077807dc0c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_IsSettingWeapon: 0
 --- !u!114 &4263317342122906334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,9 +219,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fbbcebc0ae4be4289ad480698e2de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryGunTemplate: {fileID: 0}
-  primarySocket: {fileID: 694893907011097662, guid: 6a4d94bcad6e0984384e510c5394bc74, type: 3}
-  IsAssaultGun: 0
+  m_WhichWeapon: 0
+  m_AssaultGunTemplate: {fileID: 0}
+  m_ShotGunTemplate: {fileID: 0}
+  m_SubMachineGunTemplate: {fileID: 0}
+  m_PrimarySocket: {fileID: 0}
+  m_IsAssaultGun: 0
 --- !u!114 &4205452364807596912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110b451170854ef4db4620c91359e027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  m_MovementSpeed: 10
 --- !u!54 &7716674994980014174
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -261,9 +266,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ac3b72883fb584d86ff29f779f40dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 10
-  flickerColor: {r: 1, g: 1, b: 1, a: 1}
-  flickerDuration: 0.1
+  m_StartHealth: 10
+  m_FlickerColor: {r: 1, g: 1, b: 1, a: 1}
+  m_FlickerDuration: 0.1
+--- !u!114 &1014122942175154043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6804035661595595573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aeacf81c68c81948a9d79a559cea038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7694714097539326873
 GameObject:
   m_ObjectHideFlags: 0

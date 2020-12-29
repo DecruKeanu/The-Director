@@ -6,17 +6,20 @@ public class PlayerCharacter : BasicCharacter
 {
     private Plane m_CursorMovementPlane;
     public bool m_IsSettingWeapon;
-
+    private float m_StressTimer = 0.0f;
+    private StressLevel m_StressLevel = null;
     protected override void Awake()
     {
         base.Awake();
         m_CursorMovementPlane = new Plane(Vector3.up, transform.position);
+        m_StressLevel = FindObjectOfType<StressLevel>();
     }
 
     private void Update()
     {
         HandleMovementInput();
         HandleFireInput();
+        HandleStressLevel();
     }
 
     void HandleMovementInput()
@@ -90,6 +93,20 @@ public class PlayerCharacter : BasicCharacter
         if (Input.GetAxis("Reload") > 0.0f)
         {
             m_ShootingBehaviour.Reload();
+        }
+    }
+
+    void HandleStressLevel()
+    {
+        m_StressTimer += Time.deltaTime;
+
+        if (m_StressTimer > 4.0)
+        {
+            if (m_StressLevel.CurrentStress > 0)
+            {
+                m_StressLevel.decreaseStress(5);
+                m_StressTimer = 0.0f;
+            }
         }
     }
 }

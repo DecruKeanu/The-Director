@@ -8,16 +8,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 342919820888616861, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: attackRange
-      value: 8
+      propertyPath: m_damage
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 342919820888616861, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
       propertyPath: fireTimer
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 342919820888616861, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: m_AttackRange
+      propertyPath: attackRange
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 342919820888616861, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: m_AttackRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32,6 +40,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -41,14 +53,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 377058460270861186, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
@@ -104,41 +108,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 9972bac80497068448d52b84f17478db, type: 2}
     - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: assaultGunTemplate
-      value: 
-      objectReference: {fileID: 4373087568600123746, guid: 6a4d94bcad6e0984384e510c5394bc74, type: 3}
-    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: shotGunTemplate
-      value: 
-      objectReference: {fileID: 6266658574500729074, guid: d81ad9ca11ae07547a1d2f87c0633efa, type: 3}
-    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: subMachineGunTemplate
-      value: 
-      objectReference: {fileID: 7592509907679174165, guid: 52c3ba762e8bfa746add50c9e6635a97, type: 3}
-    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
       propertyPath: whichWeapon
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: m_AssaultGunTemplate
-      value: 
-      objectReference: {fileID: 4373087568600123746, guid: 6a4d94bcad6e0984384e510c5394bc74, type: 3}
-    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: m_ShotGunTemplate
-      value: 
-      objectReference: {fileID: 6266658574500729074, guid: d81ad9ca11ae07547a1d2f87c0633efa, type: 3}
-    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: m_SubMachineGunTemplate
-      value: 
-      objectReference: {fileID: 7592509907679174165, guid: 52c3ba762e8bfa746add50c9e6635a97, type: 3}
+      propertyPath: m_WhichWeapon
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
       propertyPath: m_PrimarySocket
       value: 
       objectReference: {fileID: 8569566892549579165}
     - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
-      propertyPath: m_WhichWeapon
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: shotGunTemplate
+      value: 
+      objectReference: {fileID: 6266658574500729074, guid: d81ad9ca11ae07547a1d2f87c0633efa, type: 3}
+    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: m_ShotGunTemplate
+      value: 
+      objectReference: {fileID: 6266658574500729074, guid: d81ad9ca11ae07547a1d2f87c0633efa, type: 3}
+    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: assaultGunTemplate
+      value: 
+      objectReference: {fileID: 4373087568600123746, guid: 6a4d94bcad6e0984384e510c5394bc74, type: 3}
+    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: m_AssaultGunTemplate
+      value: 
+      objectReference: {fileID: 4373087568600123746, guid: 6a4d94bcad6e0984384e510c5394bc74, type: 3}
+    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: subMachineGunTemplate
+      value: 
+      objectReference: {fileID: 7592509907679174165, guid: 52c3ba762e8bfa746add50c9e6635a97, type: 3}
+    - target: {fileID: 9217048069007585540, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+      propertyPath: m_SubMachineGunTemplate
+      value: 
+      objectReference: {fileID: 7592509907679174165, guid: 52c3ba762e8bfa746add50c9e6635a97, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
 --- !u!1 &8569566892549579165 stripped

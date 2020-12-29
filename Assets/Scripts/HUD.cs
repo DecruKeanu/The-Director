@@ -8,25 +8,31 @@ public class HUD : MonoBehaviour
 {
     //including the UnityEngine.UI namespace
     [SerializeField] private Image m_HealthBar = null;
+    [SerializeField] private Image m_StressLevelBar = null;
     [SerializeField] private Text m_PrimaryAmmo = null;
     [SerializeField] private Text m_TotalAmmo = null;
     [SerializeField] private Text m_GrenadeText = null;
     [SerializeField] private Text m_GrenadeCounter = null;
+    [SerializeField] private Text m_Stage = null;
     [SerializeField] private RectTransform m_PanelEndScreen = null;
     private Health m_PlayerHealth = null;
+    private StressLevel m_StressLevel = null;
     private ShootingBehaviour m_PlayerShootingBehaviour = null;
     private LevelLogic m_LevelLogic = null;
-
+    private Director m_Director = null;
     void Start()
     {
         //find an object of type player
         PlayerCharacter player = FindObjectOfType<PlayerCharacter>();
         //find an object of type level
         m_LevelLogic = FindObjectOfType<LevelLogic>();
+        //find the director
+        m_Director = FindObjectOfType<Director>();
         //if player exist acces its health and shootingbehaviour script and store it
         if (player)
         {
             m_PlayerHealth = player.GetComponent<Health>();
+            m_StressLevel = player.GetComponent<StressLevel>();
             m_PlayerShootingBehaviour = player.GetComponent<ShootingBehaviour>();
         }
     }
@@ -61,7 +67,16 @@ public class HUD : MonoBehaviour
         {
             m_HealthBar.transform.localScale = new Vector3(m_PlayerHealth.HeatlhPercentage, 1.0f, 1.0f);
         }
-
+        //stressLevel
+        if (m_StressLevelBar && m_StressLevel)
+        {
+            m_StressLevelBar.transform.localScale = new Vector3(m_StressLevel.StressPercentage, 1.0f, 1.0f);
+        }
+        //stage
+        if (m_Stage)
+        {
+            m_Stage.text = m_Director.GetCurentStage.ToString();
+        }
         //ammo
         if (m_PrimaryAmmo && m_PlayerShootingBehaviour)
         {
