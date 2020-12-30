@@ -14,10 +14,6 @@ public class EnemyCharacter : BasicCharacter
     private float m_Timer = 0.0f;
     private float m_StressTimer = 0.0f;
     private Health m_Health = null;
-    [SerializeField] private GameObject m_HealthpickUp = null;
-    [SerializeField] private GameObject m_AmmopickUp = null;
-    private bool m_DoOnce = false;
-    private float m_DropChance;
     private StressLevel m_PlayerStressLevel = null;
     private bool CanIncreaseStressLevel = false;
     private void Start()
@@ -31,7 +27,6 @@ public class EnemyCharacter : BasicCharacter
             m_PlayerStressLevel = player.GetComponent<StressLevel>();
         }
         m_Health = GetComponent<Health>();
-        m_DropChance = Random.Range(0, 3);
         m_Timer = m_FireTimer;
     }
 
@@ -56,23 +51,6 @@ public class EnemyCharacter : BasicCharacter
         {
             m_HasAttacked = false;
             m_Timer = m_FireTimer;
-        }
-        if (m_Health.CurrentHeatlh <= 0)
-        {
-            if (m_DoOnce == false)
-            {
-                if (m_DropChance == 1)
-                {
-                    if (m_HealthpickUp)
-                    Instantiate(m_HealthpickUp, transform.position, transform.rotation);
-                }
-                else if (m_DropChance == 2)
-                {
-                    if (m_AmmopickUp)
-                    Instantiate(m_AmmopickUp, transform.position, transform.rotation);
-                }
-                m_DoOnce = true;
-            }
         }
     }
 
