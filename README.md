@@ -55,5 +55,9 @@ I added a stress level script and element to the HUD. The stress system i made i
 
 pickUps spawn in the relax stage of the cyclus. They have preset spawn locations on blue quads but how many will spawn in the relax stage is dependent on the max stress level in the buildUp and peak stage. How higher those 2 value were how more pickups will spawn. The pickups exist out of health and ammo.
 
+**Enemy Spawns**
+
+The enemys that spawn in the peak stage are also dependent on the max stress level during the buildup stage. If the max stress level was lower than 50% than large zombies will spawn that have more health and do more damage but they are also slow. If the stress level was higher than 50% than small zombies will spawn that have less health and do less damage but are very fast.
+
 
 
