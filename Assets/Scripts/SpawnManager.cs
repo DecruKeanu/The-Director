@@ -76,4 +76,11 @@ public class SpawnManager : MonoBehaviour
             point.Spawn();
         }
     }
+    public void ChangeGameObjects(GameObject newTemplate)
+    {
+        foreach (SpawnPoint point in m_SpawnPoints)
+        {
+            point.ChangeGameObject(newTemplate);
+        }
+    }
 }

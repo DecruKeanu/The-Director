@@ -15,7 +15,12 @@ public class Director : MonoBehaviour
     [SerializeField] PickUpSpawner m_PickUpSpawn4 = null;
     [SerializeField] PickUpSpawner m_PickUpSpawn5 = null;
     [SerializeField] PickUpSpawner m_PickUpSpawn6 = null;
+    [SerializeField] GameObject m_NormalZombie = null;
+    [SerializeField] GameObject m_FastZombie = null;
+    [SerializeField] GameObject m_HeavyZombie = null;
     private bool m_DoOnce = false;
+    private bool m_ChangeTemplateOnce = false;
+    private bool m_SpawnPickUpOnce = false;
     private float m_Timer = 0.0f;
     private float m_RelaxTimer = 0.0f;
     private float m_MaxStressBuildUp = 0.0f;
@@ -61,14 +66,10 @@ public class Director : MonoBehaviour
         {
             if (m_DoOnce == false)
             {
-                m_LevelStage = stage.buildUp;
                 Invoke("StartNewWave", 0.0f);
                 m_DoOnce = true;
             }
         }
-
-
-
 
         //when the player presses escape he can quite the build
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -82,62 +83,100 @@ public class Director : MonoBehaviour
     {
         if (m_Timer < m_PhaseLength)
         {
-            if (m_StressLevel.CurrentStress > m_MaxStressBuildUp)
-                m_MaxStressBuildUp = m_StressLevel.CurrentStress;
-
-            SpawnManager.Instance.SpawnWave();
-
-            m_CurrentFrequency = m_PhaseLength / (m_PhaseLength /(8 - m_CycleIncrease));
-
-            Invoke("StartNewWave", m_CurrentFrequency);
+            BuildUp();
         }
         else if (m_Timer < m_PhaseLength + m_PhaseLength / 2)
         {
-            m_LevelStage = stage.peak;
-
-            if (m_StressLevel.CurrentStress > m_MaxStressPeak)
-                m_MaxStressPeak = m_StressLevel.CurrentStress;
-
-            SpawnManager.Instance.SpawnWave();
-
-            m_CurrentFrequency = m_PhaseLength/(50/(m_MaxStressBuildUp/10));
-
-            Invoke("StartNewWave", m_CurrentFrequency);
+            Peak();
         }
         else if (m_Timer > m_PhaseLength + m_PhaseLength / 2)
         {
-            m_LevelStage = stage.relax;
-            m_AverageStress = (m_MaxStressBuildUp + m_MaxStressPeak) / 2;
-            Debug.Log(m_AverageStress);
-            m_RelaxTimer += Time.deltaTime;
-            Debug.Log(m_RelaxTimer);
-            if (m_RelaxTimer > m_AverageStress / 4)
-            {
-                m_Timer = 0.0f;
-                m_CycleIncrease += 1.0f;
-                m_MaxStressBuildUp = 0.0f;
-                m_MaxStressPeak = 0.0f;
-                m_PhaseLength += 10.0f;
-                m_RelaxTimer = 0.0f;
-                m_DoOnce = false;
+            Relax();
+        }
+    }
 
-                m_PickUpSpawn1.SpawnPickUp();
+    void BuildUp()
+    {
+        m_LevelStage = stage.buildUp;
 
-                if (m_AverageStress > 20)
+        if (m_StressLevel.CurrentStress > m_MaxStressBuildUp)
+            m_MaxStressBuildUp = m_StressLevel.CurrentStress;
+
+        SpawnManager.Instance.SpawnWave();
+        SpawnManager.Instance.ChangeGameObjects(m_NormalZombie);
+        m_CurrentFrequency = m_PhaseLength / (m_PhaseLength / (8 - m_CycleIncrease));
+
+        Invoke("StartNewWave", m_CurrentFrequency);
+    }
+
+    void Peak()
+    {
+        m_LevelStage = stage.peak;
+
+        if (m_StressLevel.CurrentStress > m_MaxStressPeak)
+            m_MaxStressPeak = m_StressLevel.CurrentStress;
+
+        if (m_ChangeTemplateOnce == false)
+        {
+            if (m_MaxStressBuildUp < 50)
+            SpawnManager.Instance.ChangeGameObjects(m_HeavyZombie);
+            else if (m_MaxStressBuildUp > 50)
+            SpawnManager.Instance.ChangeGameObjects(m_FastZombie);
+
+            m_ChangeTemplateOnce = true;
+        }
+
+        SpawnManager.Instance.SpawnWave();
+        m_CurrentFrequency = m_PhaseLength / ((40 + (m_CycleIncrease * 5)) / ((m_MaxStressBuildUp + 20)/ 10));
+        Debug.Log(m_CurrentFrequency);
+        Invoke("StartNewWave", m_CurrentFrequency);
+    }
+
+    void Relax()
+    {
+        m_LevelStage = stage.relax;
+        m_AverageStress = (m_MaxStressBuildUp + m_MaxStressPeak) / 2;
+        m_RelaxTimer += Time.deltaTime;
+
+        HandlePickUp();
+
+        if (m_RelaxTimer > m_AverageStress / 4)
+        {
+            m_Timer = 0.0f;
+            m_CycleIncrease += 1.0f;
+            m_MaxStressBuildUp = 0.0f;
+            m_MaxStressPeak = 0.0f;
+            m_PhaseLength += 10.0f;
+            m_RelaxTimer = 0.0f;
+            m_DoOnce = false;
+            SpawnManager.Instance.ChangeGameObjects(m_NormalZombie);
+            m_SpawnPickUpOnce = false;
+        }
+    }
+
+    void HandlePickUp()
+    {
+        if (m_SpawnPickUpOnce == false)
+        {
+            m_PickUpSpawn1.SpawnPickUp();
+
+            if (m_AverageStress > 20)
                 m_PickUpSpawn2.SpawnPickUp();
 
-                if (m_AverageStress > 40)
-                    m_PickUpSpawn3.SpawnPickUp();
+            if (m_AverageStress > 40)
+                m_PickUpSpawn3.SpawnPickUp();
 
-                if (m_AverageStress > 60)
-                    m_PickUpSpawn4.SpawnPickUp();
+            if (m_AverageStress > 60)
+                m_PickUpSpawn4.SpawnPickUp();
 
-                if (m_AverageStress > 80)
-                    m_PickUpSpawn5.SpawnPickUp();
+            if (m_AverageStress > 80)
+                m_PickUpSpawn5.SpawnPickUp();
 
-                if (m_AverageStress > 90)
-                    m_PickUpSpawn6.SpawnPickUp();
-            }
+            if (m_AverageStress > 90)
+                m_PickUpSpawn6.SpawnPickUp();
+
+            m_SpawnPickUpOnce = true;
         }
     }
 }
+

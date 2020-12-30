@@ -37,7 +37,7 @@ public class EnemyCharacter : BasicCharacter
 
         m_StressTimer += Time.deltaTime;
         CanIncreaseStressLevel = false;
-        if (m_StressTimer > 2.0f)
+        if (m_StressTimer > 1.0f)
         {
             m_StressTimer = 0.0f;
             CanIncreaseStressLevel = true;

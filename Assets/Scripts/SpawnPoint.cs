@@ -20,4 +20,9 @@ public class SpawnPoint : MonoBehaviour
     {
         return Instantiate(m_SpawnTemplate, transform.position, transform.rotation);
     }
+
+    public void ChangeGameObject(GameObject newTemplate)
+    {
+        m_SpawnTemplate = newTemplate;
+    }
 }

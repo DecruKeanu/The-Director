@@ -99,7 +99,6 @@ public class PlayerCharacter : BasicCharacter
     void HandleStressLevel()
     {
         m_StressTimer += Time.deltaTime;
-
         if (m_StressTimer > 4.0)
         {
             if (m_StressLevel.CurrentStress > 0)
