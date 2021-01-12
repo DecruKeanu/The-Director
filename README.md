@@ -41,7 +41,7 @@ The director Ai in the far cry series serves the purpose of an asset manager mos
 
 **Preproduction**
 
-I decided to do a simple implementation of a director AI in unity using a system similar as used in left 4 dead. I will have a build-up, peak and relax stage that affects the game world and takes the player’s stress level into account. The gameplay will be a twin stick shooter. I also decided to use my unity project from game mechanics as the foundation because It already has twin stick shooter mechanics present. I also had to change how the stages and stress level interact with each other because my implementation is single player. In the build-up stage you’re maximum stress level will decide how much zombies will spawn in the peak stage. If you’re maximum stress level is already very high in the build-up stage then the peak stage will be more forgiving but if your maximum stress level was low the peak will be very hard. In the relax stage your maximum stress level in the peak stage will decide how much time you have to heal and collect ammo before the next cycle starts. It will also affect how much ammo and health supply spawn. The maximum amount of zombies that can spawn also increases per cycle.
+I decided to do a simple implementation of a director AI in unity using a system similar as used in left 4 dead. I will have a build-up, peak and relax stage that affects the game world and takes the player’s stress level into account. The gameplay will be a twin stick shooter. I also decided to use my unity project from game mechanics as the foundation because It already has twin stick shooter mechanics present. I also had to change how the stages and stress level interact with each other because my implementation is single player.
 
 **Game mechanics**
 
@@ -49,11 +49,74 @@ The first thing I did was change the foundation I already had to fit more into t
 
 **Stress level**
 
-I added a stress level script and element to the HUD. The stress system i made is simpler than the one used in left 4 dead but has the same purpose. The stress in my implementation increases when an enemy is in 6 meters of the player (danger zone) and when an enemy succesfully atacks the player. When an enemy is in the danger zone the stress only increases 1/2 of when an enemy attacks the player. This makes sure that the stress doesn't increase too fast and that the player is overwhelmed.
+I added a stress level script and element to the HUD. I made the class so i can easily get the stress value in percent or value by making a getters. I also made an increase or decrease function where i can change the stress level dependent on the value i pass as parameter. I also visualise the stress level as a blue bar in the HUD.
+
+```c#
+public class StressLevel : MonoBehaviour
+{
+    private int m_CurrentStress = 0;
+
+    public float StressPercentage
+    {
+        get
+        {
+            return ((float)m_CurrentStress / 100);
+        }
+    }
+
+    public float CurrentStress
+    {
+        get
+        {
+            return (m_CurrentStress);
+        }
+    }
+
+    public void IncreaseStress(int amount)
+    {
+        m_CurrentStress += amount;
+
+        if (m_CurrentStress >= 100)
+            m_CurrentStress = 100;
+    }
+
+    public void decreaseStress(int amount)
+    {
+        m_CurrentStress -= amount;
+    }
+}
+```
 
 **PickUps**
 
 pickUps spawn in the relax stage of the cyclus. They have preset spawn locations on blue quads but how many will spawn in the relax stage is dependent on the max stress level in the buildUp and peak stage. How higher those 2 value were how more pickups will spawn. The pickups exist out of health and ammo.
+
+```c#
+    void HandlePickUp() //gets called in relax stage
+    {
+        if (m_SpawnPickUpOnce == false)
+        {
+            m_PickUpSpawn1.SpawnPickUp();
+
+            if (m_AverageStress > 20)
+                m_PickUpSpawn2.SpawnPickUp();
+
+            if (m_AverageStress > 40)
+                m_PickUpSpawn3.SpawnPickUp();
+
+            if (m_AverageStress > 60)
+                m_PickUpSpawn4.SpawnPickUp();
+
+            if (m_AverageStress > 80)
+                m_PickUpSpawn5.SpawnPickUp();
+
+            if (m_AverageStress > 90)
+                m_PickUpSpawn6.SpawnPickUp();
+
+            m_SpawnPickUpOnce = true;
+        }
+    }
+```
 
 **Enemy Spawns**
 
