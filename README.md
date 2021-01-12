@@ -35,13 +35,13 @@ The alien AI itself exist out of behaviour trees.
 
 **Far Cry**
 
-The director AI in the *far cry* series serves the main purpose of an asset manager. It will spawn NPC’s like humans and animals if they are in a radius of the player and despawn them if they are out of that radius. This way the CPU and GPU can focus their resources where they need to be. This base system is used in a lot of open world game but i listed far cry as a prime example.
+The director AI in the *far cry* series serves the main purpose of an asset manager. It will spawn NPC’s like humans and animals if they are in a radius of the player and despawn them if they are out of that radius. This way the CPU and GPU can focus their resources where they need to be. This base system is used in a lot of open world game but i listed *far cry* as a prime example.
 
 **Own implementation**
 
 **Preproduction**
 
-The project is a simple implementation of a director AI in unity using a system similar as used in left 4 dead. It has a build-up, peak and relax stage that affects the game world and takes the player’s stress level into account. The gameplay is a twin stick shooter. It is based of my unity project from game mechanics as the foundation because it already has twin stick shooter mechanics present. It also has a different implemantion of the stages and stress level because this implementation is single player.
+The project is a simple implementation of a director AI in unity using a system similar as used in left 4 dead. It has a build-up, peak and relax stage that affects the game world and takes the player’s stress level into account. The gameplay is a twin stick shooter. It is based of my unity project from game mechanics as the foundation because it already has twin stick shooter mechanics present. It also has a different implementation of the stages and stress level because this implementation is single player.
 
 **Game mechanics**
 
