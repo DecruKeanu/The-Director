@@ -1,5 +1,4 @@
 # The-Director
-foundation
 For my research project i decided to focus on Director AI’s and discover the design philosophies of making one and researching directors in existing games before making my own implementation.
 
 **Design Philosophy**
@@ -58,6 +57,33 @@ pickUps spawn in the relax stage of the cyclus. They have preset spawn locations
 **Enemy Spawns**
 
 The enemys that spawn in the peak stage are also dependent on the max stress level during the buildup stage. If the max stress level was lower than 50% than large zombies will spawn that have more health and do more damage but they are also slow. If the stress level was higher than 50% than small zombies will spawn that have less health and do less damage but are very fast.
+
+
+**Conclusion**
+
+Director AI's can be used to decide the flow of the game or to make the game more dynamic. The best director AI's will do both at the same time like alien isolation and left 4 dead. My own implementation altough simplistic tries to show this using the stress level. I feel that this is reason that director AI's are beign used a lot in games. Even if they have a smaller function like in far cry and i think they are here to stay and enhance our gaming experience behind the scenes.
+
+**Sources**
+
+general:
+
+https://www.youtube.com/watch?v=Mnt5zxb8W0Y&t=569s&ab_channel=AIandGames
+
+alien isolation:
+
+https://www.gamasutra.com/blogs/TommyThompson/20171031/308027/The_Perfect_Organism_The_AI_of_Alien_Isolation.php
+
+https://www.gamasutra.com/blogs/TommyThompson/20200520/363134/Revisiting_the_AI_of_Alien_Isolation.php
+
+https://www.pcgamesn.com/interview-creative-assembly-alien-isolations-terrifying-alien-ai
+
+left 4 dead:
+
+https://left4dead.fandom.com/wiki/The_Director#:~:text=The%20Director%20(sometimes%20referred%20to,dramatics%2C%20pacing%2C%20and%20difficulty.
+
+https://medium.com/@t2thompson/in-the-directors-chair-the-ai-of-left-4-dead-78f0d4fbf86a
+
+
 
 
 
