@@ -1,7 +1,7 @@
 # The-Director
 The research project focuses on Director AI’s and discover the design philosophies of making one and researching directors in existing games before making my own implementation.
 
-**Design Philosophy**
+### Design Philosophy
 
 There is no wrong or correct way to develop a Director AI. It does exist out of 3 key features that define what an director AI is. These are the following:
 
@@ -11,7 +11,7 @@ There is no wrong or correct way to develop a Director AI. It does exist out of 
 
 Because these 3 features are the only defining element of a director AI it would be better to look at games that implemented this system to understand what a director AI really is and it basic workings. Keep in mind that these examples are not the only implementation of this AI system and that there are many more games that implemented this system.
 
-**Left 4 Dead**
+### Left 4 Dead
 
 The director AI in *Left 4 Dead* is perhaps the most well-known implementation of a director AI and works in 3 stages. The first stage is called the build-up and occurs when the players are not in a lot of danger. The director will increase the danger level and switch to the second stage called the peak. In this stage the danger level reached a given threshold and will this will trigger the director to give one last big attack to the players to keep them under pressure. After this the director switched to the last stage called relax. In this stage the director slows down significantly and allow the players to catch their breath and heal. In this stage the director also waits to restart the cycle but this is dependent on a number of factors. A big factor that the director takes into account during this whole process is stress level of the players. This is monitored for each player separately. 
 
@@ -22,7 +22,7 @@ The stress increases when:
 
 The director will attack players with a lower stress level more. This is how the system works behind the scenes, but how does it change the game world itself. The director is responsible for spawning enemies in the world and decide which pickups (at presets) are going to spawn according to the players stress level. The director AI is also balanced and has some restrictions to make it fairer to the players. The director AI also interacts with an audio manager to give cues when certain events are happening. 
 
-**Alien: Isolation**
+### Alien: Isolation
 
 The director AI in *alien: isolation* is a very complicated one. It takes a lot of factors into account but this is a simplified explanation of the AI. The main purpose of the director AI is to point the alien AI to the player by giving hints of its location but the director never shares the exact location. The way it does this is by working with a menace system. If the menace is low the director will be put in active mode and send signals to the alien AI to hunt and search for the player. If the menace is high the director will be put in a passive mode to let the player catch his breath. In this mode the director will send instructions to the Alien AI to crawl into the vents and leave the player alone (for a while at least). 
 
@@ -33,21 +33,21 @@ The menace increases when:
 
 The alien AI itself exist out of behaviour trees.
 
-**Far Cry**
+### Far Cry
 
 The director AI in the *far cry* series serves the main purpose of an asset manager. It will spawn NPC’s like humans and animals if they are in a radius of the player and despawn them if they are out of that radius. This way the CPU and GPU can focus their resources where they need to be. This base system is used in a lot of open world game but i listed *far cry* as a prime example.
 
-**Own implementation**
+### Own implementation
 
-**Preproduction**
+#### Preproduction
 
 The project is a simple implementation of a director AI in unity using a system similar as used in left 4 dead. It has a build-up, peak and relax stage that affects the game world and takes the player’s stress level into account. The gameplay is a twin stick shooter. It is based of my unity project from game mechanics as the foundation because it already has twin stick shooter mechanics present. It also has a different implementation of the stages and stress level because this implementation is single player.
 
-**Game mechanics**
+#### Game mechanics
 
 The first thing in the project that was changed was the enemy types, pickUps and the map itself. They are changed to make it fit the new implementation more.
 
-**Stress level**
+#### Stress level
 
 A stress level script and element to the HUD was added. The class can easily get the stress value in percent or value by the use of getters. It also has an increase or decrease function where it can change the stress level dependent on the value that is passed as parameter. The stress level is also visualised as a blue bar in the HUD.
 
@@ -87,7 +87,7 @@ public class StressLevel : MonoBehaviour
 }
 ```
 
-**Main Loop**
+#### Main Loop
 
 This is the main loop of the director AI. It switches between the stages dependent on the phaseLength which has a startvalue of 60 seconds.
 
@@ -111,7 +111,7 @@ This is the main loop of the director AI. It switches between the stages depende
 ```
 
 
-**BuildUp**
+#### BuildUp
 
 This is the BuildUp stage of the implemented director. It will start by by writing the stage to the HUD. It will then update the stored max stress level if it increased, after that the enemy wave will spawn with normal zombies. It will then decide the enemy spawn frequency decided on how long the builUp stage is. 
 
@@ -131,7 +131,7 @@ This is the BuildUp stage of the implemented director. It will start by by writi
     }
 ```
 
-**Peak**
+#### Peak
 
 The peak stage starts with writing the stage to the HUD same as the BuildUp. It will also update the stress the same way as the BuildUp stage. The first time this function gets called in this cycle it will decide which type of enemy will spawn based on the stress level in the previous stage. Then it will spawn the new enemies and the spawn frequency will depend on the max stress level in the buildup stage.
 
@@ -159,7 +159,7 @@ The peak stage starts with writing the stage to the HUD same as the BuildUp. It 
     }
 ```
 
-**Relax**
+#### Relax
 
 The start of the relax stage is the same as the 2 other stages. It will write the current stage to the HUD. Then it will calculate the average stress level from the buildUp and peak stage. It will begin a timer and decide how long the relax stage is based on the average stress level. Then when the timer reaches that value it will start a new cycle and spawn new pickups (see title below). This function is also calls DirectorLoop more than the other stages because its important that the timer is frequently updated.
 
@@ -186,7 +186,7 @@ The start of the relax stage is the same as the 2 other stages. It will write th
     }
 ```
 
-**PickUps**
+#### PickUps
 
 pickUps spawn in the relax stage of the cyclus as mentioned before. They have preset spawn locations on blue quads but how many will spawn in the relax stage is dependent on the max stress level in the buildUp and peak stage. How higher those 2 value were how more pickups will spawn. The pickups exist out of health and ammo.
 
@@ -217,11 +217,11 @@ pickUps spawn in the relax stage of the cyclus as mentioned before. They have pr
     }
 ```
 
-**Conclusion**
+### Conclusion
 
 Director AI's can be used to decide the flow of the game or to make the game more dynamic. The best director AI's will do both at the same time like alien isolation and left 4 dead. This implementation although simplistic tries to show this using the stress level. The feeling is that this is the reason that director AI's are beign used a lot in games, even if they have a smaller function like in far cry. The assumption after the prject was made is that director AI's are here to stay and enhance our gaming experience behind the scenes.
 
-**Sources**
+### Sources
 
 general:
 
