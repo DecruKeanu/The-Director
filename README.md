@@ -35,7 +35,7 @@ The alien AI itself exist out of behaviour trees.
 
 **Far Cry**
 
-The director AI in the far cry series serves the purpose of an asset manager most of the time. It will spawn NPC’s like humans and animals if they are in a radius of the player and despawn them if they are out of that radius. This way the CPU and GPU can focus their resources where they need to be. This base system is used in a lot of open world game but i listed far cry as a prime example.
+The director AI in the *far cry* series serves the main purpose of an asset manager. It will spawn NPC’s like humans and animals if they are in a radius of the player and despawn them if they are out of that radius. This way the CPU and GPU can focus their resources where they need to be. This base system is used in a lot of open world game but i listed far cry as a prime example.
 
 **Own implementation**
 
