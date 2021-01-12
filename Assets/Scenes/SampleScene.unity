@@ -8078,6 +8078,9 @@ MonoBehaviour:
   m_PickUpSpawn4: {fileID: 2030483659}
   m_PickUpSpawn5: {fileID: 995830103}
   m_PickUpSpawn6: {fileID: 1770921966}
+  m_NormalZombie: {fileID: 4934169480759174764, guid: 2ab937bf9e6a79e4ead4910c3b0a52ab, type: 3}
+  m_FastZombie: {fileID: 1881586516595872357, guid: 411370664da2e244397342fddb5c864e, type: 3}
+  m_HeavyZombie: {fileID: 2232436293304391478, guid: 8c3b9226c7eba1046a941603fdc817d2, type: 3}
 --- !u!4 &1369078654
 Transform:
   m_ObjectHideFlags: 0

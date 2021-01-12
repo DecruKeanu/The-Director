@@ -26,7 +26,6 @@ public class Director : MonoBehaviour
     private float m_MaxStressBuildUp = 0.0f;
     private float m_MaxStressPeak = 0.0f;
     private float m_AverageStress = 0.0f;
-    private float m_CycleIncrease = 0.0f;
     public enum stage
     {
         introduction,
@@ -66,7 +65,7 @@ public class Director : MonoBehaviour
         {
             if (m_DoOnce == false)
             {
-                Invoke("StartNewWave", 0.0f);
+                Invoke("DirectorLoop", 0.0f);
                 m_DoOnce = true;
             }
         }
@@ -79,7 +78,7 @@ public class Director : MonoBehaviour
     }
 
     //spawn enemies at the start of a new wave
-    private void StartNewWave()
+    private void DirectorLoop()
     {
         if (m_Timer < m_PhaseLength)
         {
@@ -102,11 +101,11 @@ public class Director : MonoBehaviour
         if (m_StressLevel.CurrentStress > m_MaxStressBuildUp)
             m_MaxStressBuildUp = m_StressLevel.CurrentStress;
 
-        SpawnManager.Instance.SpawnWave();
         SpawnManager.Instance.ChangeGameObjects(m_NormalZombie);
-        m_CurrentFrequency = m_PhaseLength / (m_PhaseLength / (8 - m_CycleIncrease));
+        SpawnManager.Instance.SpawnWave();
+        m_CurrentFrequency = m_PhaseLength / (m_PhaseLength / (8));
 
-        Invoke("StartNewWave", m_CurrentFrequency);
+        Invoke("DirectorLoop", m_CurrentFrequency);
     }
 
     void Peak()
@@ -127,9 +126,9 @@ public class Director : MonoBehaviour
         }
 
         SpawnManager.Instance.SpawnWave();
-        m_CurrentFrequency = m_PhaseLength / ((40 + (m_CycleIncrease * 5)) / ((m_MaxStressBuildUp + 20)/ 10));
+        m_CurrentFrequency = m_PhaseLength / (40 / ((m_MaxStressBuildUp + 20)/ 10));
         Debug.Log(m_CurrentFrequency);
-        Invoke("StartNewWave", m_CurrentFrequency);
+        Invoke("DirectorLoop", m_CurrentFrequency);
     }
 
     void Relax()
@@ -137,21 +136,22 @@ public class Director : MonoBehaviour
         m_LevelStage = stage.relax;
         m_AverageStress = (m_MaxStressBuildUp + m_MaxStressPeak) / 2;
         m_RelaxTimer += Time.deltaTime;
+        Debug.Log(m_RelaxTimer);
 
-        HandlePickUp();
 
         if (m_RelaxTimer > m_AverageStress / 4)
         {
             m_Timer = 0.0f;
-            m_CycleIncrease += 1.0f;
             m_MaxStressBuildUp = 0.0f;
             m_MaxStressPeak = 0.0f;
-            m_PhaseLength += 10.0f;
+            m_PhaseLength += 2.0f;
             m_RelaxTimer = 0.0f;
             m_DoOnce = false;
             SpawnManager.Instance.ChangeGameObjects(m_NormalZombie);
             m_SpawnPickUpOnce = false;
+            HandlePickUp();
         }
+        Invoke("DirectorLoop",0.01f);
     }
 
     void HandlePickUp()
