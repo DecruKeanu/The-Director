@@ -4,6 +4,7 @@ For my research project i decided to focus on Director AI’s and discover the d
 **Design Philosophy**
 
 There is no wrong or correct way to develop a Director AI. It does exist out of 3 key features that define what an director AI is. These are the following:
+
 -	The Director AI has to record data about what the player is doing.
 -	The Director AI has to adapt the game world based on this data.
 -	The Director AI has to enforce In-World rules and logic
