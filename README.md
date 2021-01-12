@@ -93,7 +93,7 @@ This is the main loop of the director AI. It will switch between the stages depe
 
 
 ```c#
-    private void StartNewWave()
+    private void DirectorLoop()
     {
         if (m_Timer < m_PhaseLength)
         {
@@ -127,7 +127,7 @@ I started with writing the BuildUp stage for my director. It will start by by wr
         SpawnManager.Instance.SpawnWave();
         m_CurrentFrequency = m_PhaseLength / (m_PhaseLength / (8));
 
-        Invoke("StartNewWave", m_CurrentFrequency);
+        Invoke("DirectorLoop", m_CurrentFrequency);
     }
 ```
 
@@ -155,7 +155,7 @@ The peak stage starts with writing the stage to the HUD same as the BuildUp. It 
 
         SpawnManager.Instance.SpawnWave();
         m_CurrentFrequency = m_PhaseLength / (40 / ((m_MaxStressBuildUp + 20)/ 10));
-        Invoke("StartNewWave", m_CurrentFrequency);
+        Invoke("DirectorLoop", m_CurrentFrequency);
     }
 ```
 
@@ -182,7 +182,7 @@ The start of the relax stage is the same as the 2 other stages. It will write th
             m_SpawnPickUpOnce = false;
             HandlePickUp();
         }
-        Invoke("StartNewWave",0.01f);
+        Invoke("DirectorLoop",0.01f);
     }
 ```
 
