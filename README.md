@@ -219,7 +219,7 @@ pickUps spawn in the relax stage of the cyclus as mentioned before. They have pr
 
 **Conclusion**
 
-Director AI's can be used to decide the flow of the game or to make the game more dynamic. The best director AI's will do both at the same time like alien isolation and left 4 dead. My own implementation altough simplistic tries to show this using the stress level. I feel that this is reason that director AI's are beign used a lot in games. Even if they have a smaller function like in far cry and i think they are here to stay and enhance our gaming experience behind the scenes.
+Director AI's can be used to decide the flow of the game or to make the game more dynamic. The best director AI's will do both at the same time like alien isolation and left 4 dead. My own implementation although simplistic tries to show this using the stress level. I feel that this is reason that director AI's are beign used a lot in games. Even if they have a smaller function like in far cry. i also think director AI's are here to stay and enhance our gaming experience behind the scenes.
 
 **Sources**
 
