@@ -26,12 +26,15 @@ public class StressLevel : MonoBehaviour
     {
         m_CurrentStress += amount;
 
-        if (m_CurrentStress >= 100)
+        if (m_CurrentStress > 100)
             m_CurrentStress = 100;
     }
 
     public void decreaseStress(int amount)
     {
         m_CurrentStress -= amount;
+
+        if (m_CurrentStress < 0)
+            m_CurrentStress = 0;
     }
 }

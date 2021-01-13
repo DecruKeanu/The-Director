@@ -26,6 +26,8 @@ public class Director : MonoBehaviour
     private float m_MaxStressBuildUp = 0.0f;
     private float m_MaxStressPeak = 0.0f;
     private float m_AverageStress = 0.0f;
+    private List<PickUpSpawner> m_SpawnPoints = new List<PickUpSpawner>();
+
     public enum stage
     {
         introduction,
@@ -49,17 +51,22 @@ public class Director : MonoBehaviour
 
         m_StressLevel = FindObjectOfType<StressLevel>();
         m_MaxStressBuildUp = m_StressLevel.CurrentStress;
-        m_PickUpSpawn1.SpawnPickUp();
-        m_PickUpSpawn2.SpawnPickUp();
-        m_PickUpSpawn3.SpawnPickUp();
-        m_PickUpSpawn4.SpawnPickUp();
-        m_PickUpSpawn5.SpawnPickUp();
-        m_PickUpSpawn6.SpawnPickUp();
-    }
+
+        m_SpawnPoints.Add(m_PickUpSpawn1);
+        m_SpawnPoints.Add(m_PickUpSpawn2);
+        m_SpawnPoints.Add(m_PickUpSpawn3);
+        m_SpawnPoints.Add(m_PickUpSpawn4);
+        m_SpawnPoints.Add(m_PickUpSpawn5);
+        m_SpawnPoints.Add(m_PickUpSpawn6);
+
+        foreach (PickUpSpawner spawnPoint in m_SpawnPoints)
+        {
+            spawnPoint.SpawnPickUp();
+        }
+}
 
     private void Update()
     {
-
         m_Timer += Time.deltaTime;
         if (m_Level.m_GameStarted == false)
         {
@@ -115,7 +122,7 @@ public class Director : MonoBehaviour
         if (m_StressLevel.CurrentStress > m_MaxStressPeak)
             m_MaxStressPeak = m_StressLevel.CurrentStress;
 
-        if (m_ChangeTemplateOnce == false)
+        if (!m_ChangeTemplateOnce)
         {
             if (m_MaxStressBuildUp < 50)
             SpawnManager.Instance.ChangeGameObjects(m_HeavyZombie);
@@ -136,45 +143,40 @@ public class Director : MonoBehaviour
         m_LevelStage = stage.relax;
         m_AverageStress = (m_MaxStressBuildUp + m_MaxStressPeak) / 2;
         m_RelaxTimer += Time.deltaTime;
-        Debug.Log(m_RelaxTimer);
 
-
-        if (m_RelaxTimer > m_AverageStress / 4)
+        SpawnPickUps();
+        if (m_RelaxTimer > m_AverageStress / 4) //divided by 3 otherwise relax stage is too long
         {
             m_Timer = 0.0f;
             m_MaxStressBuildUp = 0.0f;
             m_MaxStressPeak = 0.0f;
-            m_PhaseLength += 2.0f;
+            m_PhaseLength += 2.0f; //phaseLength is increased for harder difficulty
             m_RelaxTimer = 0.0f;
             m_DoOnce = false;
             SpawnManager.Instance.ChangeGameObjects(m_NormalZombie);
             m_SpawnPickUpOnce = false;
-            HandlePickUp();
         }
         Invoke("DirectorLoop",0.01f);
     }
 
-    void HandlePickUp()
+    void SpawnPickUps()
     {
-        if (m_SpawnPickUpOnce == false)
+        if (!m_SpawnPickUpOnce)
         {
-            m_PickUpSpawn1.SpawnPickUp();
+            m_SpawnPoints[0].SpawnPickUp();
 
-            if (m_AverageStress > 20)
-                m_PickUpSpawn2.SpawnPickUp();
-
-            if (m_AverageStress > 40)
-                m_PickUpSpawn3.SpawnPickUp();
-
-            if (m_AverageStress > 60)
-                m_PickUpSpawn4.SpawnPickUp();
-
-            if (m_AverageStress > 80)
-                m_PickUpSpawn5.SpawnPickUp();
-
-            if (m_AverageStress > 90)
-                m_PickUpSpawn6.SpawnPickUp();
-
+            int stressValue = 10;
+            int idx = 0;
+            foreach (PickUpSpawner spawnPoint in m_SpawnPoints)
+            {
+                if (idx > 0 && m_AverageStress > stressValue)
+                {
+                    Debug.Log(m_AverageStress);
+                    spawnPoint.SpawnPickUp();
+                    stressValue += 20;
+                }
+                idx++;
+            }
             m_SpawnPickUpOnce = true;
         }
     }
