@@ -52,6 +52,10 @@ The first thing in the project that was changed were the enemy types and pickups
 A stress level script and a visualised element to the HUD were added. The HUD can easily access the stress value in percent or value by the use of getter functions. The stress level is visualised as a blue bar in the HUD.
 
 ```c#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class StressLevel : MonoBehaviour
 {
     private int m_CurrentStress = 0;
@@ -80,9 +84,12 @@ public class StressLevel : MonoBehaviour
             m_CurrentStress = 100;
     }
 
-    public void DecreaseStress(int amount)
+    public void decreaseStress(int amount)
     {
         m_CurrentStress -= amount;
+
+        if (m_CurrentStress < 0)
+            m_CurrentStress = 0;
     }
 }
 ```
@@ -170,17 +177,17 @@ The start of the *Relax* stage is the same as the 2 previous stages. After the s
         m_AverageStress = (m_MaxStressBuildUp + m_MaxStressPeak) / 2;
         m_RelaxTimer += Time.deltaTime;
 
-        if (m_RelaxTimer > m_AverageStress / 4)
+        SpawnPickUps();
+        if (m_RelaxTimer > m_AverageStress / 3) //divided by 3 otherwise relax stage is too long
         {
             m_Timer = 0.0f;
             m_MaxStressBuildUp = 0.0f;
             m_MaxStressPeak = 0.0f;
-            m_PhaseLength += 2.0f; //phaseLength is increased to make difficulty harder
+            m_PhaseLength += 2.0f; //phaseLength is increased for harder difficulty
             m_RelaxTimer = 0.0f;
             m_DoOnce = false;
             SpawnManager.Instance.ChangeGameObjects(m_NormalZombie);
             m_SpawnPickUpOnce = false;
-            HandlePickUp();
         }
         Invoke("DirectorLoop",0.01f);
     }
@@ -191,27 +198,24 @@ The start of the *Relax* stage is the same as the 2 previous stages. After the s
 Pickups spawn in the relax stage of the cyclus as mentioned before. They have preset spawn locations on blue quads and how many will spawn in the *Relax* stage is dependant on the max stress level in the *Build-up* and *Peak* stage. The pickups exist out of health and ammo.
 
 ```c#
-    void HandlePickUp() //gets called in relax stage
+    void SpawnPickUps()
     {
-        if (m_SpawnPickUpOnce == false)
+        if (!m_SpawnPickUpOnce)
         {
-            m_PickUpSpawn1.SpawnPickUp();
+            m_SpawnPoints[0].SpawnPickUp();
 
-            if (m_AverageStress > 20)
-                m_PickUpSpawn2.SpawnPickUp();
-
-            if (m_AverageStress > 40)
-                m_PickUpSpawn3.SpawnPickUp();
-
-            if (m_AverageStress > 60)
-                m_PickUpSpawn4.SpawnPickUp();
-
-            if (m_AverageStress > 80)
-                m_PickUpSpawn5.SpawnPickUp();
-
-            if (m_AverageStress > 90)
-                m_PickUpSpawn6.SpawnPickUp();
-
+            int stressValue = 10;
+            int idx = 0;
+            foreach (PickUpSpawner spawnPoint in m_SpawnPoints)
+            {
+                if (idx > 0 && m_AverageStress > stressValue)
+                {
+                    Debug.Log(m_AverageStress);
+                    spawnPoint.SpawnPickUp();
+                    stressValue += 20;
+                }
+                idx++;
+            }
             m_SpawnPickUpOnce = true;
         }
     }
