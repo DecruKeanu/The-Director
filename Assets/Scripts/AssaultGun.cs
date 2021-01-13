@@ -39,6 +39,7 @@ public class AssaultGun : MonoBehaviour
     public void increase(int amount)
     {
         m_TotalAmmo += amount;
+        m_CurrentGrenades++;
     }
 
     private void Awake()

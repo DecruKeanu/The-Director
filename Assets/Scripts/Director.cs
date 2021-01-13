@@ -145,7 +145,7 @@ public class Director : MonoBehaviour
         m_RelaxTimer += Time.deltaTime;
 
         SpawnPickUps();
-        if (m_RelaxTimer > m_AverageStress / 4) //divided by 3 otherwise relax stage is too long
+        if (m_RelaxTimer > m_AverageStress / 3) //divided by 3 otherwise relax stage is too long
         {
             m_Timer = 0.0f;
             m_MaxStressBuildUp = 0.0f;
